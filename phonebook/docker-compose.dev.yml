@@ -1,0 +1,27 @@
+services:
+  server:
+    image: phone-backend
+    build:
+      context: ./phonebook-backend/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./phonebook-backend/:/usr/src/app
+    environment:
+      - MONGODB_URI=mongodb+srv://jania:Sfdm6Q78wOpOJo5V@cluster0.kykiijr.mongodb.net/phonebook?retryWrites=true&w=majority
+  app:
+    image: phone-frontend
+    build:
+      context: ./phonebook-frontend/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./phonebook-frontend:/usr/src/app
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: nginx-proxy
+    depends_on:
+      - server
+      - app
