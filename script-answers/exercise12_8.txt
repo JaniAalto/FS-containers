@@ -1,0 +1,78 @@
+Script started on 2023-10-07 10:00:31+00:00 [TERM="xterm" TTY="/dev/pts/0" COLUMNS="127" LINES="40"]
+# mongosh
+Current Mongosh Log ID: 65212c6351d5327df8c3e2eb
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1
+Using MongoDB:          7.0.2
+Using Mongosh:          2.0.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+test> show dbs
+MongoServerError: Command listDatabases requires authentication
+test>
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+test>
+# mongosh -u root -p example
+Current Mongosh Log ID: 65212cb78f332f36b044ca6e
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1
+Using MongoDB:          7.0.2
+Using Mongosh:          2.0.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-10-06T16:29:01.561+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2023-10-06T16:29:02.544+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2023-10-06T16:29:02.544+00:00: vm.max_map_count is too low
+------
+
+test> show dbs
+admin         100.00 KiB
+config         72.00 KiB
+local          72.00 KiB
+the_database   40.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId("652035ccada5d00ea042aaf4"),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId("652035ccada5d00ea042aaf5"),
+    text: 'Learn about containers',
+    done: false
+  }
+]
+the_database> db.todos.insertOne({text: 'Increase the number of tools in my toolbelt', done: false})
+{
+  acknowledged: true,
+  insertedId: ObjectId("652149b28f332f36b044ca6f")
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId("652035ccada5d00ea042aaf4"),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId("652035ccada5d00ea042aaf5"),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId("652149b28f332f36b044ca6f"),
+    text: 'Increase the number of tools in my toolbelt',
+    done: false
+  }
+]
